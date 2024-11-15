@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: ["*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull submodules
+        run: git submodule update --init
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Compile the assets
+        run: bun compile
+
+      - name: Run tests
+        run: |
+          bun examples/basic.ts
+          bun examples/oop.ts
