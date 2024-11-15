@@ -48,11 +48,6 @@ jobs:
         name: Get current version
         run: echo "CURRENT_VERSION=$(npm pkg get version  | tr -d '"')" >> $GITHUB_OUTPUT
 
-      - name: Set package version
-        run: bunx npm version --no-git-tag-version $CURRENT_VERSION
-        env:
-          CURRENT_VERSION: ${{ steps.current-version.outputs.CURRENT_VERSION }}
-
       - name: Publish package
         run: |
           echo "//registry.npmjs.org/:_authToken=$AUTH_TOKEN" >> .npmrc
