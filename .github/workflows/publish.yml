@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Pull submodules
-        run: git submodule update --init
+        with:
+          submodules: "recursive"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
