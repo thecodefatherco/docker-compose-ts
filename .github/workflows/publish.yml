@@ -6,6 +6,9 @@ on:
 
 jobs:
   push:
+    permissions:
+      contents: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,6 +45,18 @@ jobs:
           bun examples/oop.ts
 
       - run: npm install
+
+      - name: Replace version in package.json
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/g" package.json
+
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push version changes to GitHub
+        run: |
+          git add .
+          git commit -m "chore: update "
+          git push
