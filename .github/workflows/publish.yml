@@ -53,7 +53,8 @@ jobs:
         env:
           CURRENT_VERSION: ${{ steps.current-version.outputs.CURRENT_VERSION }}
 
-      - run: |
+      - name: Publish package
+        run: |
           echo "//registry.npmjs.org/:_authToken=$AUTH_TOKEN" >> .npmrc
           bun publish --provenance --access=public
         env:
