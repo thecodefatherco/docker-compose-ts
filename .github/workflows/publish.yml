@@ -1,11 +1,11 @@
-name: CI
+name: CD
 
 on:
   push:
     tags: ["*"]
 
 jobs:
-  build:
+  push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
