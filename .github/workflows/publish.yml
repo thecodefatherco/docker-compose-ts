@@ -44,10 +44,6 @@ jobs:
           bun examples/basic.ts
           bun examples/oop.ts
 
-      - id: current-version
-        name: Get current version
-        run: echo "CURRENT_VERSION=$(npm pkg get version  | tr -d '"')" >> $GITHUB_OUTPUT
-
       - name: Publish package
         run: |
           echo "//registry.npmjs.org/:_authToken=$AUTH_TOKEN" >> .npmrc
