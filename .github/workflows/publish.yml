@@ -44,14 +44,12 @@ jobs:
           bun examples/basic.ts
           bun examples/oop.ts
 
-      - run: npm install
-
       - name: Replace version in package.json
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/g" package.json
 
-      - run: npm publish --provenance --access public
+      - run: bun publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -61,4 +59,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add .
           git commit -m "chore: update "
-          git push
+          git push origin main
