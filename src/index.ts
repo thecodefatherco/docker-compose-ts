@@ -1,6 +1,6 @@
 import type {
   ComposeSpecification,
-  DefinitionsService,
+  Service as DefinitionsService,
 } from "../types/compose-spec";
 import { dump, type DumpOptions } from "js-yaml";
 

@@ -1790,6 +1790,10 @@ export interface Service {
            */
           endpoint_var?: string;
           /**
+           * Environment variable set to AI model name.
+           */
+          model_var?: string;
+          /**
            * This interface was referenced by `undefined`'s JSON-Schema definition
            * via the `patternProperty` "^x-".
            */
